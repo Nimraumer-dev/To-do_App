@@ -12,7 +12,7 @@
 .container {
     width: 100%;
     min-height: 100vh;
-    background: linear-gradient(135deg,#030c2d ,#32779a) ;
+    background: linear-gradient(135deg, #030c2d, #32779a);
     padding: 10px;
 }
 
@@ -41,6 +41,7 @@
 .row {
     display: flex;
     align-items: center;
+    /* border-left: 6px solid #93badc; */
     justify-content: space-between;
     background: #edeef0;
     border-radius: 30px;
@@ -117,4 +118,32 @@ ul li span {
 
 ul li span:hover {
     background: #edeef0;
+}
+
+@media(max-width: 768px) {
+    .todo-app {
+        width: 100%;
+
+    }
+
+    input {
+        width: 50%;
+        padding: 5px;
+        font-weight: 12px;
+    }
+
+    button {
+        width: 30%;
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    ul li {
+        font-size: 14px;
+    }
+
+    ul li::before {
+        width: 22px;
+        height: 22px;
+    }
 }
