@@ -1,168 +1,306 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --radius-lg: 24px;
+    --radius-md: 12px;
+}
 
 * {
     margin: 0;
     padding: 0;
-    font-family: "Poppins", sans-serif;
     box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
 .container {
     width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #030c2d, #32779a);
-    padding: 10px;
+    max-width: 480px;
+    animation: fadeIn 0.6s ease-out;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-.todo-app {
-    width: 100%;
-    max-width: 540px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.todo-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+header h1 i {
+    color: var(--primary);
+    width: 32px;
+    height: 32px;
+}
+
+header #current-date {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.input-section {
+    display: flex;
+    gap: 12px;
     background: #fff;
-    margin: 100px auto 20px;
-    padding: 40px 30px 70px;
-    border-radius: 10px;
-}
-
-.todo-app h2 {
-    color: #002765;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.todo-app h2 img {
-    width: 30px;
-    margin-left: 10px;
-}
-
-.row {
-    display: flex;
-    align-items: center;
-    /* border-left: 6px solid #93badc; */
-    justify-content: space-between;
-    background: #edeef0;
-    border-radius: 30px;
+    padding: 8px;
     padding-left: 20px;
-    margin-bottom: 25px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid var(--border);
 }
 
+.input-section:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
 
-input {
+.input-section input {
     flex: 1;
     border: none;
     outline: none;
-    background: transparent;
-    padding: 10px;
-    font-weight: 14px;
+    font-size: 1rem;
+    color: var(--text-main);
 }
 
-button {
+.input-section input::placeholder {
+    color: #94a3b8;
+}
+
+.input-section button {
+    background: var(--primary);
+    color: white;
     border: none;
-    outline: none;
-    padding: 16px 50px;
-    background: #002765;
-    color: #fff;
-    font-size: 16px;
+    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    border-radius: 40px;
-
+    transition: all 0.2s;
 }
 
-.dlt{
-   /* border: 2px solid red; */
-   position: relative;
-   margin: auto;
-   margin-top: 80px;
+.input-section button:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
 }
 
-#deleteAllBtn{
-    padding: 14px 30px;
+.input-section button i {
+    width: 20px;
+    height: 20px;
 }
 
-ul li {
+#listItem {
     list-style: none;
-    font-size: 17px;
-    padding: 12px 8px 12px 50px;
-    user-select: none;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+#listItem::-webkit-scrollbar {
+    width: 4px;
+}
+
+#listItem::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+#listItem li {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    transition: all 0.2s;
     cursor: pointer;
     position: relative;
+    animation: slideIn 0.3s ease-out;
 }
 
-ul li::before {
-    content: '';
-    position: absolute;
-    height: 28px;
-    width: 28px;
-    border-radius: 50%;
-    background-image: url(img/unchecked.png);
-    background-size: cover;
-    background-position: center;
-    top: 12px;
-    left: 8px;
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
-ul li.checked {
-    color: #555;
+#listItem li:hover {
+    background: #fff;
+    border-color: var(--border);
+    transform: translateX(4px);
+}
+
+#listItem li.checked {
+    opacity: 0.6;
+}
+
+#listItem li.checked .task-text {
     text-decoration: line-through;
+    color: var(--text-muted);
 }
 
-ul li.checked::before {
-    background-image: url(img/checked1.png);
+/* Custom Checkbox */
+.checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    margin-right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 
-
-ul li span {
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
-    color: #155677;
-    line-height: 40px;
-    text-align: center;
-    border-radius: 50%;
+#listItem li.checked .checkbox {
+    background: var(--primary);
+    border-color: var(--primary);
 }
 
-ul li span:hover {
-    background: #edeef0;
+#listItem li.checked .checkbox i {
+    color: white;
 }
 
-@media(max-width: 768px) {
-    .todo-app {
-        width: 100%;
-
-    }
-
-    input {
-        width: 50%;
-        padding: 14px;
-        font-weight: 12px;
-    }
-
-    button {
-        width: 30%;
-        padding: 13px 20px;
-        font-size: 14px;
-    }
-
-    ul li {
-        font-size: 14px;
-    }
-
-    ul li::before {
-        width: 22px;
-        height: 22px;
-    }
-
-    #deleteAllBtn{
-    padding: 10px 0px;
-    font-size: 13px;
+.task-text {
+    flex: 1;
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 400;
 }
 
+.delete-btn {
+    opacity: 0;
+    background: #fee2e2;
+    color: #ef4444;
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+#listItem li:hover .delete-btn {
+    opacity: 1;
+}
 
+.delete-btn:hover {
+    background: #fecaca;
+    color: #dc2626;
+}
+
+.controls {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+#task-count {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+#deleteAllBtn {
+    background: transparent;
+    color: #ef4444;
+    border: 1px solid #fee2e2;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+#deleteAllBtn:hover {
+    background: #fee2e2;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        background: #fff;
+        /* Solid background for mobile */
+    }
+
+    .container {
+        height: 100vh;
+        max-width: 100%;
+        display: flex;
+    }
+
+    .todo-card {
+        border-radius: 0;
+        box-shadow: none;
+        flex: 1;
+        padding: 30px 20px;
+        background: #fff;
+        backdrop-filter: none;
+        border: none;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
 }
